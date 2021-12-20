@@ -1,11 +1,9 @@
 Title: JavaMemo_1
-Date: 2021-12-18
+Date: 2021-12-22
 Category: Java
 Tags: Java
 
-
 # 数値処理
-<br>
 
 ```Java
 import java.lang.Math
@@ -68,7 +66,7 @@ double num2 = Math.ceil(3.1);
 ```
 
 
-# 配列の宣言と初期化
+# リストの宣言と初期化
 ```Java
 import java.util.ArraysList;
 import java.util.Arrays;
