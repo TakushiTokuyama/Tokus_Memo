@@ -23,44 +23,44 @@ public class Main {
 catchは複数記述できるが、それ以外を複数記述するとコンパイルエラーとなる。  
 try,catch,finallyの順番も守る必要がある。  
 ```Java
-try{
+try {
     // 処理
-}catch(Exception e){
+} catch(Exception e) {
     // 例外発生時の処理
-}finally{
+} finally {
     // 必ず実行したい処理
 }
 ```
 
 finally複数のためコンパイルエラー
 ```Java
-try{
+try {
     
-}catch(Exception e){
+} catch (Exception e) {
     
-}finally{
+} finally {
     
-}finally{
+} finally {
             
 }
 ```
 
 記述の順番が不正なためコンパイルエラー
 ```Java
-try{
+try {
     
-}finally{
+} finally {
     
-}catch(Exception e){
+} catch(Exception e) {
     
 }
 ```
 
 catchの省略  
 ```Java
-try{
+try {
     System.out.println("A");
-}finally{
+} finally {
     System.out.print("B");
 }
 ```
@@ -74,23 +74,23 @@ catchを複数記述した際の、継承関係によるコンパイルエラー
 スーパークラスで先に例外をcatchするため、  
 サブクラスのRuntimeexceptionは到達不可能コードとなる  
 ```Java
-try{
+try {
     System.out.println("A");
-}catch(Exception e){
+} catch (Exception e) {
     System.out.println(e);
     // 到達不可能コード
-}catch(RuntimeException re){
+} catch (RuntimeException re) {
     System.out.println(re);
 }
 ```
 
 サブクラスを先に記述する  
 ```Java
-try{
+try {
     System.out.println("A");
-}catch(RuntimeException re){
+} catch (RuntimeException re) {
     System.out.println(re);
-}catch(Exception e){
+} catch (Exception e) {
     System.out.println(e);
 }
 ```
@@ -99,10 +99,47 @@ try{
 A
 ```
 
+例外を投げる  
 ```Java
-try{
+try {
+    // 例外クラスをインスタンス化して投げる。  
     throw new Exception();
-}catch(Exception e){
+    // catchする
+} catch(Exception e) {
     System.out.println(e);
 }
+```
+
+```Java
+java.lang.Exception
+```
+
+例外を再度投げる  
+```Java
+public class Main {
+    public static void main(String[] args) {
+        try {
+            throwError();
+            // catchする
+        } catch (RuntimeException re) {
+            System.out.println("catch");
+            System.out.println(re);
+        }
+    }
+
+    private static void throwError() {
+        try {
+            // 例外クラスをインスタンス化して投げる。
+            throw new RuntimeException();
+        } catch (RuntimeException re) {
+            // 再度投げる
+            throw re;
+        }
+    }
+}
+```
+
+```Java
+catch
+java.lang.RuntimeException
 ```
