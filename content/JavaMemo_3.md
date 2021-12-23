@@ -82,6 +82,18 @@ java --source 17  Main
 mv Main Main.java
 ```
 
+## classファイルを作成後、jarを作成し。jarを起動してみる
+ソースコード  
+```Java
+package src;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(1);
+    }
+}
+```
+
 compile 指定した場所にclassファイルを生成
 ```Java
 // srcフォルダに生成 command option directory Main.java
@@ -97,3 +109,33 @@ java src/Main
 ```Java
 jar -cvf src/Main.jar src/*.class
 ```
+
+```Java
+added manifest
+adding: src/Main.class(in = 382) (out= 272)(deflated 28%)
+```
+
+
+```Java
+no main manifest attribute, in src/Main.jar
+```
+
+manifestファイルを作成
+```Java
+touch Main.mf
+```
+manifestファイルに以下記述
+```Java
+Main-Class: src.Main
+```
+
+manifestファイルをjarに追加する
+```Java
+jar -cvfm src/Main.jar src/Main.mf src/*.class
+```
+
+jarを起動する
+```Java
+java -jar src/Main.jar
+```
+
