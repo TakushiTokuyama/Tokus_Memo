@@ -3,7 +3,7 @@ Date: 2021-12-23
 Category: Java
 Tags: Java
 
-Java記述のルール  
+## Java記述のルール  
 package宣言  
 import宣言
 class  
@@ -64,6 +64,7 @@ class Main {
 The declared package "" does not match the expected package "src"
 ```
 
+## javaのcommand
 java commandでの呼び出し
 ```Java
 java Main.java
@@ -94,7 +95,9 @@ public class Main {
 }
 ```
 
-compile 指定した場所にclassファイルを生成
+
+compile   
+指定した場所にclassファイルを生成
 ```Java
 // srcフォルダに生成 command option directory Main.java
 javac -sourcepath src src/Main.java
@@ -110,12 +113,7 @@ java src/Main
 jar -cvf src/Main.jar src/*.class
 ```
 
-```Java
-added manifest
-adding: src/Main.class(in = 382) (out= 272)(deflated 28%)
-```
-
-
+manifestファイルが存在しない状態でjarを起動した場合  
 ```Java
 no main manifest attribute, in src/Main.jar
 ```
@@ -124,7 +122,8 @@ manifestファイルを作成
 ```Java
 touch Main.mf
 ```
-manifestファイルに以下記述
+manifestファイルに以下記述  
+起動するための情報が必要となる  
 ```Java
 Main-Class: src.Main
 ```
@@ -134,8 +133,36 @@ manifestファイルをjarに追加する
 jar -cvfm src/Main.jar src/Main.mf src/*.class
 ```
 
+```Java
+added manifest
+adding: src/Main.class(in = 382) (out= 272)(deflated 28%)
+```
+
 jarを起動する
 ```Java
 java -jar src/Main.jar
 ```
 
+## jar　command
+
+jarの中身を確認
+```Java
+jar -tf src/Main.jar
+```
+
+```java
+META-INF/
+META-INF/MANIFEST.MF
+src/Main.class
+```
+
+jarを展開する
+```Java
+jar -xvf src/Main.jar
+```
+
+```Java
+  created: META-INF/
+ inflated: META-INF/MANIFEST.MF
+ inflated: src/Main.class
+```
