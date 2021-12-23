@@ -31,31 +31,69 @@ class Main {
 }
 ```
 
-```Java
-import 
-```
-
-完全修飾詞で読み込むパターン①
+完全修飾詞で読み込むパターン①  
+import宣言  
 ```Java
 import java.util.ArrayList;
 ```
 
-完全修飾詞で読み込むパターン②
+完全修飾詞で読み込むパターン②  
+宣言時に完全修飾詞を追記  
 ```Java
 java.util.ArrayList<String> list;
 ```
-無名パッケージは無名パッケージに属するクラスしか読み込めない。
 
+ ## 別のpackageの読み込み
+
+2つの有名packageと1つの無名package
 ```Java
+src/Main.java
+sample/Sample.java
+Sample.java
+```
+### src/Main.java  
+別のpackageのクラスを読み込む場合はimportする
+src/Main.java
+```Java
+package src;
+// samplepackageを読み込む
+import sample.Sample;
 
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(1);
+
+        new Sample();
+    }
+}
 ```
 
-ディレクトリ構成がsrc-Main.javaの場合、
+### sample/Sample.java
+```
+package sample;
+
+public class Sample {
+    public void sample(){
+        System.out.println("sample");
+    }
+}
+```
+
+無名パッケージは無名パッケージに属するクラスしか読み込めない。 
+### sample.java
+```Java
+public class Sample {
+    public void sample(){
+        System.out.println("sample");
+    }
+}
+```
+## packageの注意点  
+ディレクトリ構成がsrc/Main.javaの場合、
 package宣言をしないとエラーとなる。  
 ```Java
 class Main {
     public static void main(String[] args) {
-        java.util.ArrayList<String> list2;
     }
 }
 ```
@@ -95,15 +133,13 @@ public class Main {
 }
 ```
 
-
-compile   
 指定した場所にclassファイルを生成
 ```Java
-// srcフォルダに生成 command option directory Main.java
+// compile後に、classファイルが作成される
 javac -sourcepath src src/Main.java
 ```
 
-実行
+classファイルを実行
 ```Java 
 java src/Main
 ```
@@ -142,9 +178,6 @@ jarを起動する
 ```Java
 java -jar src/Main.jar
 ```
-
-## jar　command
-
 jarの中身を確認
 ```Java
 jar -tf src/Main.jar
@@ -156,7 +189,8 @@ META-INF/MANIFEST.MF
 src/Main.class
 ```
 
-jarを展開する
+jarを展開する  
+カレントディレクトリに展開されるので場所には注意が必要    
 ```Java
 jar -xvf src/Main.jar
 ```
